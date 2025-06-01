@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { client } from "@tina/__generated__/client";
 import Page from "@/components/Page";
 
@@ -7,16 +7,19 @@ export default async function BlogPostPage({
 }: {
   params: { filename: string[] };
 }) {
-  const parameters = await params;
+  const { filename } = await params;
 
-  const relativePath = parameters.filename.join("/") + ".json";
+  const filePath = filename.join("/");
+
+  if (filePath === "index") redirect("/");
+
+  const shouldAddExtension = !filePath.includes(".json");
+  const relativePath = shouldAddExtension ? filePath + ".json" : filePath;
 
   try {
     const { data, variables, query } = await client.queries.page({
-      relativePath,
+      relativePath: relativePath,
     });
-
-    console.log({ data, variables, query });
 
     return <Page data={data} variables={variables} query={query} />;
   } catch (err) {

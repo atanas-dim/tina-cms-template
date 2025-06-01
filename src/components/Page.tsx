@@ -20,8 +20,6 @@ const Page: FC<PageProps> = (props) => {
 
   const page = data.page;
 
-  console.log({ page });
-
   return (
     <article className="prose max-w-3xl mx-auto py-10">
       <h1 data-tina-field={tinaField(page, "title")}>{page.title}</h1>

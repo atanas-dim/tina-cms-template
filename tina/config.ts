@@ -95,12 +95,16 @@ export default defineConfig({
         label: "Pages",
         path: "content/pages",
         format: "json",
+
         ui: {
           router: ({ document }) => {
-            console.log({ document });
-            return document._sys.filename === "home"
+            return document._sys.filename === "index.json"
               ? "/"
-              : document._sys.filename;
+              : document._sys.relativePath;
+          },
+          allowedActions: {
+            delete: true,
+            create: true,
           },
         },
         fields: [
@@ -108,9 +112,10 @@ export default defineConfig({
             type: "string",
             name: "title",
             label: "Title",
-            isTitle: true,
             required: true,
+            isTitle: true,
           },
+
           {
             type: "rich-text",
             name: "body",
@@ -118,10 +123,6 @@ export default defineConfig({
             isBody: true,
           },
         ],
-        // ui: {
-        //   // This is an DEMO router. You can remove this to fit your site
-        //   // router: ({ document }) => `/demo/${document._sys.filename}`,
-        // },
       },
     ],
   },

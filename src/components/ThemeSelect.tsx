@@ -1,43 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Field } from "tinacms";
+import { Field, SelectProps, SelectField } from "tinacms";
 import { client } from "@tina/__generated__/client";
 
-type Option = {
-  relativePath: string;
-  name: string;
-};
-
 const ThemeSelect: Field["component"] = (props) => {
-  const [options, setOptions] = useState<Option[]>([]);
+  const [options, setOptions] = useState<SelectProps["options"]>([]);
 
   useEffect(() => {
-    // console.log({ props,  client });
-
     client.queries.themeConnection().then((res) => {
       const options =
         res.data.themeConnection.edges?.map((edge) => ({
-          relativePath: edge?.node?._sys.relativePath || "",
-          name: edge?.node?.name || "",
+          value: edge?.node?._sys.relativePath || "",
+          label: edge?.node?.name || "",
         })) || [];
 
       setOptions(options);
     });
   }, []);
 
-  return (
-    <div className="flex flex-col gap-1 text-sm">
-      <span>Active Theme</span>
-      <select className="border p-2" {...props.input}>
-        {options.map((opt) => {
-          return (
-            <option key={opt.relativePath} value={opt.relativePath}>
-              {opt.name}
-            </option>
-          );
-        })}
-      </select>
-    </div>
-  );
+  return <SelectField {...props} options={options} name="active theme" />;
 };
 
 export default ThemeSelect;

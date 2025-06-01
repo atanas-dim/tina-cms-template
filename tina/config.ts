@@ -91,9 +91,18 @@ export default defineConfig({
       },
 
       {
-        name: "post",
-        label: "Posts",
-        path: "content/posts",
+        name: "page",
+        label: "Pages",
+        path: "content/pages",
+        format: "json",
+        ui: {
+          router: ({ document }) => {
+            console.log({ document });
+            return document._sys.filename === "home"
+              ? "/"
+              : document._sys.filename;
+          },
+        },
         fields: [
           {
             type: "string",
@@ -109,10 +118,10 @@ export default defineConfig({
             isBody: true,
           },
         ],
-        ui: {
-          // This is an DEMO router. You can remove this to fit your site
-          router: ({ document }) => `/demo/blog/${document._sys.filename}`,
-        },
+        // ui: {
+        //   // This is an DEMO router. You can remove this to fit your site
+        //   // router: ({ document }) => `/demo/${document._sys.filename}`,
+        // },
       },
     ],
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useCMS, Field } from "tinacms";
+import { Field } from "tinacms";
 import { client } from "@tina/__generated__/client";
 
 type Option = {
@@ -9,10 +9,9 @@ type Option = {
 
 const ThemeSelect: Field["component"] = (props) => {
   const [options, setOptions] = useState<Option[]>([]);
-  const cms = useCMS();
 
   useEffect(() => {
-    console.log({ props, cms, client });
+    // console.log({ props,  client });
 
     client.queries.themeConnection().then((res) => {
       const options =
@@ -24,10 +23,6 @@ const ThemeSelect: Field["component"] = (props) => {
       setOptions(options);
     });
   }, []);
-
-  const handleChange = () => {
-    props.input.onChange();
-  };
 
   return (
     <div className="flex flex-col gap-1 text-sm">

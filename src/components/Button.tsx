@@ -6,11 +6,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  children,
-  className = "",
-  ...props
-}) => {
+export const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
   // TODO This should be global theme data for the app and should be Tailwind classes
   const [styles, setStyles] = useState({ bgColor: "#000", textColor: "#fff" });
 

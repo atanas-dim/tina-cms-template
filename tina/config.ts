@@ -1,3 +1,4 @@
+import { TailwindColorPicker } from "@/components/TailwindColorPicker";
 import { defineConfig } from "tinacms";
 
 // Your hosting provider likely exposes this as an environment variable
@@ -28,6 +29,29 @@ export default defineConfig({
   // See docs on content modeling for more info on how to setup new content models: https://tina.io/docs/schema/
   schema: {
     collections: [
+      {
+        name: "theme",
+        label: "Theme",
+        path: "content/theme",
+        format: "json",
+        fields: [
+          {
+            name: "button",
+            label: "Button",
+            type: "object",
+            fields: [
+              {
+                name: "bgColor",
+                label: "Background Color",
+                type: "string",
+                ui: {
+                  component: TailwindColorPicker, // ✅ Custom component
+                },
+              },
+            ],
+          },
+        ],
+      },
       {
         name: "post",
         label: "Posts",

@@ -1,0 +1,18 @@
+{
+  "activeTheme": "default",
+  "themes": [
+    {
+      "name": "Dark",
+      "_template": "theme"
+    },
+    {
+      "name": "Light",
+      "_template": "theme"
+    }
+  ],
+  "name": "Light",
+  "button": {
+    "bgColor": "#EAF9FC",
+    "textColor": "#211E1E"
+  }
+}
